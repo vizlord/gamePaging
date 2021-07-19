@@ -20,9 +20,21 @@ class _PagingState extends State<Paging> {
     getCoin();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Limit is 20'),
+        ),
+        body: getBody());
+  }
+
+
   getCoin() async {
     coin = await apiHelper.getCoins();
-    setState(() {});
+    setState(() {
+
+    });
   }
 
   checkUpdate() async {
@@ -31,7 +43,7 @@ class _PagingState extends State<Paging> {
     });
     var scrollpositin = scrollController.position;
     if (scrollpositin.pixels == scrollpositin.maxScrollExtent) {
-      var newapi = apiHelper.getApi(coin.data.length);
+      var newapi = apiHelper.getApi(20);
       var newcoin = await apiHelper.getCoins(newapi) as Coin;
       coin.data.addAll(newcoin.data);
     }
@@ -76,12 +88,4 @@ class _PagingState extends State<Paging> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Limit is 20'),
-        ),
-        body: getBody());
-  }
 }
