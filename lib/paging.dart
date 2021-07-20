@@ -21,20 +21,25 @@ class _PagingState extends State<Paging> {
   }
 
   @override
+  void dispose(){
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Limit is 20'),
         ),
         body: getBody());
+
   }
 
 
   getCoin() async {
     coin = await apiHelper.getCoins();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   checkUpdate() async {
@@ -43,20 +48,30 @@ class _PagingState extends State<Paging> {
     });
     var scrollpositin = scrollController.position;
     if (scrollpositin.pixels == scrollpositin.maxScrollExtent) {
-      var newapi = apiHelper.getApi(20);
+      var newapi = apiHelper.getApi(coin.data.length);
       var newcoin = await apiHelper.getCoins(newapi) as Coin;
       coin.data.addAll(newcoin.data);
     }
     setState(() {
       updating = false;
     });
+
   }
+
+  // fetchtwinty(){
+  //
+  //   for(int i = 0; i < 20;i++){
+  //     getCoin();
+  //     setState(() {
+  //       updating = true;
+  //     });
+  //   }
+  // }
 
   getBody() {
     if (coin == null) return Center(child: CircularProgressIndicator());
     return NotificationListener<ScrollNotification>(
       onNotification: (noti) {
-
         if (noti is ScrollEndNotification) {
           checkUpdate();
         }
