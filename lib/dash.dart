@@ -58,20 +58,25 @@ class _DashBoardPageState extends State<DashBoardPage>
               padding: const EdgeInsets.only(left: 0),
               child: Container(
                 color: Colors.black45,
-                child: TabBar(
-                  enableFeedback: true,
-                  controller: tabController,
-                  isScrollable: true,
-                  indicatorColor: Colors.transparent,
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.white.withOpacity(0.7),
-                  labelStyle: GoogleFonts.notoSans(
-                      fontSize: 16.0, fontWeight: FontWeight.w700),
-                  unselectedLabelStyle: GoogleFonts.notoSans(
-                      fontSize: 12.0, fontWeight: FontWeight.w500),
-                  tabs: [
-                    Tab(child: Text('Game')),
-                    Tab(child: Text('Paging')),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TabBar(
+                      enableFeedback: true,
+                      controller: tabController,
+                      isScrollable: true,
+                      indicatorColor: Colors.transparent,
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Colors.white.withOpacity(0.7),
+                      labelStyle: GoogleFonts.notoSans(
+                          fontSize: 16.0, fontWeight: FontWeight.w700),
+                      unselectedLabelStyle: GoogleFonts.notoSans(
+                          fontSize: 12.0, fontWeight: FontWeight.w500),
+                      tabs: [
+                        Tab(child: Text('Game')),
+                        Tab(child: Text('Paging')),
+                      ],
+                    ),
                   ],
                 ),
               ),

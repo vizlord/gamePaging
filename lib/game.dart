@@ -28,47 +28,6 @@ class _GameState extends State<Game> {
   int attackBoySpriteCount = 0;
   bool currentlySmiling = false;
 
-  void playNow() {
-    startGameTimer();
-  }
-
-  void startGameTimer() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        loadingTime--;
-      });
-      if (loadingTime == 0) {
-        setState(() {
-          loadingScreenColor = Colors.transparent;
-          loadingTime = 3;
-          loadingScreenTextColor = Colors.transparent;
-        });
-        timer.cancel();
-      }
-    });
-  }
-
-  void jump() {
-    double time = 0;
-    double height = 0;
-    double initialHeight = boyPosY;
-    Timer.periodic(Duration(milliseconds: 70), (timer) {
-      time += 0.05;
-      height = -4.9 * time * time + 2.5 * time;
-
-      setState(() {
-        if (initialHeight - height > 1) {
-          boyPosY = 1;
-          timer.cancel();
-          boySpriteCount = 1;
-        } else {
-          boyPosY = initialHeight - height;
-          boySpriteCount = 2;
-        }
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,14 +47,12 @@ class _GameState extends State<Game> {
                 color: Colors.blue[300],
                 child: Stack(
                   children: [
+                    Image.asset('assets/images/flower1.png'),
                     Container(
                       alignment: Alignment(boyPosX, boyPosY),
                       child: MyBoy(
                         boyDirection: boyDirection,
                         boySpriteCount: boySpriteCount % 2 + 1,
-                        attackBoySpriteCount: attackBoySpriteCount,
-                        currentlyLeveling: currentlyLeveling,
-                        smile: currentlySmiling,
                       ),
                     ),
                     Container(
@@ -146,4 +103,50 @@ class _GameState extends State<Game> {
       ),
     );
   }
+
+  void playNow() {
+    startGameTimer();
+  }
+
+  void startGameTimer() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        loadingTime--;
+      });
+      if (loadingTime == 0) {
+        setState(() {
+          loadingScreenColor = Colors.transparent;
+          loadingTime = 3;
+          loadingScreenTextColor = Colors.transparent;
+        });
+        timer.cancel();
+      }
+    });
+  }
+
+  void jump() {
+    double time = 0;
+    double height = 0;
+    double initialHeight = boyPosY;
+    Timer.periodic(Duration(milliseconds: 70), (timer) {
+      time += 0.05;
+      height = -2.9 * time * time + 4.5 * time;
+
+      setState(() {
+        if (initialHeight - height > 1) {
+          boyPosY = 1;
+          timer.cancel();
+          boySpriteCount = 1;
+          print(boySpriteCount % 2 + 1);
+        } else {
+          boyPosY = initialHeight - height;
+          boySpriteCount = 2;
+          print(boySpriteCount % 2 + 1);
+
+        }
+      });
+    });
+  }
+
+
 }
